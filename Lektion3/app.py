@@ -1,8 +1,21 @@
+import plotly.express as px
 import pandas as pd
 from flask import Flask, jsonify, request, render_template
 
 app = Flask(__name__)
 users = {1: "Anna", 2: "Erik"}
+
+df = pd.DataFrame({
+    'stad': ['Stockholm','Malmö','Umeå'],
+    'invånare': [980000, 360000, 130000],
+    'kommun': ['Solna','n/a',]
+})
+
+@app.route("/diagram")
+def diagram():
+    fig = px.bar(df, x="stad", y="invånare")
+    graf = fig.to_html(full_html=False)
+    return render_template("diagram.html", graf=graf)
 
 @app.route('/tabell')
 def tabell():
