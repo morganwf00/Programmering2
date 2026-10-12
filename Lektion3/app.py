@@ -1,7 +1,17 @@
+import pandas as pd
 from flask import Flask, jsonify, request, render_template
 
 app = Flask(__name__)
 users = {1: "Anna", 2: "Erik"}
+
+@app.route('/tabell')
+def tabell():
+    df = pd.DataFrame({
+        'stad': ['Stockholm','Malmö','Umeå'],
+        'invånare': [980000, 360000, 130000],
+    })
+    html = df.to_html(classes='table table-striped', index=False)
+    return render_template('tabell.html', tabell=html)
 
 @app.route('/priser')
 def priser():
@@ -9,8 +19,7 @@ def priser():
         {"tid": "10:00", "pris": 0.52},
         {"tid": "11:00", "pris": 0.61},
     ]
-    return render_template(
-        "priser.html", priser=priser)
+    return render_template("priser.html", priser=priser)
 
 @app.route("/api/users/<int:uid>")
 def get_user(uid):
