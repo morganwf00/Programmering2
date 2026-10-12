@@ -15,6 +15,14 @@ def add_user():
     users[len(users) + 1] = data["namn"]
     return jsonify(data), 201
 
+@app.route("/")
+def roten():
+    return 'Ojdå ingen sökväg...', 200
+
+@app.route("/base")
+def base():
+    return render_template("base.html"), 200
+
 @app.route("/sok")
 def sok():
     q = request.args.get("q", "")
