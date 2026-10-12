@@ -1,0 +1,10 @@
+<table class="table">
+    {% for rad in priser %}
+    <tr>
+        <td>{{ rad.tid }}</td>
+        <td>{{ "%.2f"|format(rad.pris) }} kr</td>
+    </tr>
+    {% else %}
+    <tr><td>Ingen data</td></tr>
+    {% endfor %}
+</table>

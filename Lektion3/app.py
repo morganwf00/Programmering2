@@ -3,6 +3,15 @@ from flask import Flask, jsonify, request, render_template
 app = Flask(__name__)
 users = {1: "Anna", 2: "Erik"}
 
+@app.route('/priser')
+def priser():
+    priser = [
+        {"tid": "10:00", "pris": 0.52},
+        {"tid": "11:00", "pris": 0.61},
+    ]
+    return render_template(
+        "priser.html", priser=priser)
+
 @app.route("/api/users/<int:uid>")
 def get_user(uid):
     if uid not in users:
